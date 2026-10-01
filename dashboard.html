@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Aprendizaje — English Boost Academy</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Fondo animado sutil con orbes degradados -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo.jpg" alt="Logo English Boost Academy" class="brand-logo-mini" />
+      <span class="sidebar-title">English Boost</span>
+    </div>
+
+    <div class="sidebar-nav">
+      <button class="nav-btn active" data-view="home" onclick="switchView('home', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Inicio</span>
+      </button>
+      <button class="nav-btn" data-view="practice" onclick="window.location.href='practice.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Practicar</span>
+      </button>
+      <button class="nav-btn" data-view="levels" onclick="switchView('levels', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Niveles</span>
+      </button>
+      <button class="nav-btn" data-view="evaluations" onclick="switchView('evaluations', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>Evaluaciones</span>
+      </button>
+      <button class="nav-btn" data-view="ranking" onclick="switchView('ranking', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        <span>Comparativa</span>
+      </button>
+      <button class="nav-btn" data-view="profile" onclick="switchView('profile', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Perfil & JSON</span>
+      </button>
+      <button class="nav-btn" data-view="info" onclick="switchView('info', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>Informacion</span>
+      </button>
+      <button class="nav-btn" data-view="settings" onclick="switchView('settings', this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Opciones</span>
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="nav-btn" onclick="logout()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Cerrar sesion</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Boton menu movil -->
+  <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content" id="mainContent">
+
+    <!-- =================== HOME VIEW =================== -->
+    <div id="view-home" class="view page-enter">
+
+      <!-- Header saludo -->
+      <div class="dash-header">
+        <div>
+          <h2 class="greeting" id="greetingText">Bienvenido</h2>
+          <p class="text-muted" id="greetingDate"></p>
+        </div>
+        <div class="header-right">
+          <div class="streak-chip" title="Racha de dias activos">
+            <span class="chip-icon-flame" id="streakFlameIcon"></span>
+            <span id="streakCount">0</span>
+            <span class="text-muted text-small">dias</span>
+          </div>
+          <div class="user-avatar-sm" id="headerAvatar"></div>
+        </div>
+      </div>
+
+      <!-- Barra de XP -->
+      <div class="xp-section card">
+        <div class="flex justify-between items-center mb-4" style="margin-bottom:12px">
+          <div>
+            <span class="badge badge-primary" id="levelBadge">Nivel 1</span>
+            <span class="text-muted text-small" style="margin-left:8px" id="xpText">0 / 100 XP</span>
+          </div>
+          <span id="xpPercent" class="text-muted text-small">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="xpBar" style="width:0%"></div></div>
+        <p class="text-muted text-small" style="margin-top:8px" id="xpNextLabel">Sigue practicando para subir al siguiente nivel</p>
+      </div>
+
+      <!-- Botones de sesion (10-15 minutos) -->
+      <div class="session-controls">
+        <button class="btn btn-primary btn-lg pulse" id="startBtn" onclick="startSession()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Iniciar sesion de practica
+        </button>
+        <button class="btn btn-secondary" id="pauseBtn" onclick="pauseSession()" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          Pausar
+        </button>
+        <button class="btn btn-danger" id="stopBtn" onclick="stopSession()" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          Finalizar sesion
+        </button>
+        <div class="session-timer hidden" id="sessionTimer">
+          <span class="timer-icon" id="timerClockIcon"></span>
+          <span id="timerDisplay">00:00</span>
+          <span class="text-muted text-small">(max 15 min)</span>
+        </div>
+      </div>
+
+      <!-- Categorias de practica con iconos vectoriales -->
+      <h3 class="section-title">Modulos de aprendizaje</h3>
+      <div class="category-grid">
+        <div class="category-card card" onclick="goToPractice('translate')">
+          <div class="cat-icon" id="catIconTranslate"></div>
+          <div class="cat-name">Traduccion</div>
+          <div class="cat-desc">Espanol e Ingles continuo</div>
+          <div class="cat-badge badge badge-primary">Consecutivo</div>
+        </div>
+        <div class="category-card card" onclick="goToPractice('vocab')">
+          <div class="cat-icon" id="catIconVocab"></div>
+          <div class="cat-name">Vocabulario</div>
+          <div class="cat-desc">Objetos y animales</div>
+          <div class="cat-badge badge badge-green">+50 XP</div>
+        </div>
+        <div class="category-card card" onclick="goToPractice('conversation')">
+          <div class="cat-icon" id="catIconChat"></div>
+          <div class="cat-name">Conversacion</div>
+          <div class="cat-desc">Practica con voz</div>
+          <div class="cat-badge badge badge-yellow">Voz</div>
+        </div>
+        <div class="category-card card" onclick="goToPractice('quiz')">
+          <div class="cat-icon" id="catIconQuiz"></div>
+          <div class="cat-name">Evaluacion</div>
+          <div class="cat-desc">Escala de 1 a 10</div>
+          <div class="cat-badge badge badge-red">Calificado</div>
+        </div>
+      </div>
+
+      <!-- Insignias recientes -->
+      <h3 class="section-title">Insignias y Logros</h3>
+      <div class="badges-section" id="badgesSection">
+        <div class="badge-empty text-muted text-small">
+          Completa evaluaciones para desbloquear insignias
+        </div>
+      </div>
+
+    </div>
+
+    <!-- =================== PRACTICE VIEW =================== -->
+    <div id="view-practice" class="view hidden">
+      <h2 class="dash-title">Modulos de Practica</h2>
+      <p class="text-muted" style="margin-bottom:24px">Elige un modulo para comenzar tu sesion de 10 a 15 minutos</p>
+
+      <div class="practice-list">
+        <div class="practice-item card" onclick="goToPractice('translate')">
+          <div class="practice-icon" id="pListIconTrans"></div>
+          <div class="practice-info">
+            <div class="practice-name">Traduccion de textos</div>
+            <div class="practice-desc text-muted text-small">Traduce frases, textos cortos y largos entre espanol e ingles</div>
+          </div>
+          <div class="practice-arrow" id="pArrow1"></div>
+        </div>
+        <div class="practice-item card" onclick="goToPractice('vocab')">
+          <div class="practice-icon" id="pListIconVocab"></div>
+          <div class="practice-info">
+            <div class="practice-name">Vocabulario de Objetos y Animales</div>
+            <div class="practice-desc text-muted text-small">Identifica nombres y terminos clave con evaluacion de opcion multiple</div>
+          </div>
+          <div class="practice-arrow" id="pArrow2"></div>
+        </div>
+        <div class="practice-item card" onclick="goToPractice('conversation')">
+          <div class="practice-icon" id="pListIconVoice"></div>
+          <div class="practice-info">
+            <div class="practice-name">Conversacion Guiada con Voz</div>
+            <div class="practice-desc text-muted text-small">Entrena tu pronunciacion y fluidez sobre temas practicos</div>
+          </div>
+          <div class="practice-arrow" id="pArrow3"></div>
+        </div>
+        <div class="practice-item card" onclick="goToPractice('quiz')">
+          <div class="practice-icon" id="pListIconQuiz"></div>
+          <div class="practice-info">
+            <div class="practice-name">Evaluacion Consecutiva de Nivel</div>
+            <div class="practice-desc text-muted text-small">Prueba de 10 ejercicios con calificacion precisa de 1 a 10</div>
+          </div>
+          <div class="practice-arrow" id="pArrow4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================== LEVELS VIEW =================== -->
+    <div id="view-levels" class="view hidden">
+      <h2 class="dash-title">Ruta de Niveles de Aprendizaje</h2>
+      <p class="text-muted" style="margin-bottom:24px">Progresion consecutiva sin limite de avance</p>
+      <div id="levelsContainer"></div>
+    </div>
+
+    <!-- =================== EVALUATIONS VIEW =================== -->
+    <!-- Requerimientos 5 y 10: Registro, Consulta, Actualizacion y Eliminacion de Evaluaciones -->
+    <div id="view-evaluations" class="view hidden">
+      <div class="flex justify-between items-center" style="margin-bottom:20px;flex-wrap:wrap;gap:12px">
+        <div>
+          <h2 class="dash-title">Registro y Consulta de Evaluaciones</h2>
+          <p class="text-muted">Pruebas evaluadas en escala de 1 a 10 con seguimiento continuo</p>
+        </div>
+        <div class="flex gap-2" style="flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="cleanCompletedBatch5()" title="Eliminar lote cada 5 pruebas completadas">
+            Limpiar lote (5 completadas)
+          </button>
+          <button class="btn btn-danger" onclick="deleteSelectedEvaluations()" id="btnDeleteSelected" style="display:none">
+            Eliminar seleccionadas (<span id="selectedCount">0</span>)
+          </button>
+          <button class="btn btn-primary" onclick="window.location.href='practice.html?module=quiz'">
+            + Nueva Evaluacion
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIs Resumen -->
+      <div class="eval-kpi-grid mb-4" id="evalKpiContainer"></div>
+
+      <!-- Filtros y Seleccion Multiple -->
+      <div class="eval-filter-bar mb-4">
+        <div class="filter-pills" id="evalFilterPills">
+          <button class="pill-btn active" data-filter="all" onclick="filterEvaluations('all', this)">Todas</button>
+          <button class="pill-btn" data-filter="completada" onclick="filterEvaluations('completada', this)">Completadas</button>
+          <button class="pill-btn" data-filter="pendiente" onclick="filterEvaluations('pendiente', this)">Pendientes</button>
+        </div>
+        <div class="select-all-wrap">
+          <label class="custom-chk-label">
+            <input type="checkbox" id="chkSelectAllEvals" onchange="toggleSelectAllEvals(this.checked)" />
+            <span>Seleccionar visibles</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Lista / Tabla de Evaluaciones -->
+      <div id="evaluationsListContainer"></div>
+    </div>
+
+    <!-- =================== RANKING VIEW (COMPARTIVA) =================== -->
+    <!-- Requerimiento 6.1.4: Comparar nivel en tabla de comparacion con otros usuarios -->
+    <div id="view-ranking" class="view hidden">
+      <div class="flex justify-between items-center" style="margin-bottom:12px">
+        <div>
+          <h2 class="dash-title">Tabla de Comparacion de Estudiantes</h2>
+          <p class="text-muted">Compara tu nivel, puntos de experiencia y constancia academica</p>
+        </div>
+        <div class="badge badge-primary">Temporada Academica</div>
+      </div>
+      <div id="rankingContainer"></div>
+    </div>
+
+    <!-- =================== PROFILE VIEW & JSON PERSISTENCE =================== -->
+    <!-- Requerimiento 6.1.3: Editar perfil despues de iniciar sesion & 8.1 / 9.1.2: JSON de datos -->
+    <div id="view-profile" class="view hidden">
+      <div class="flex justify-between items-center" style="margin-bottom:24px">
+        <div>
+          <h2 class="dash-title">Mi Perfil Academico</h2>
+          <p class="text-muted">Gestion de credenciales, personaje y persistencia JSON</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-secondary" onclick="openJsonModal()" title="Ver datos crudos en JSON">
+            <span class="icon-slot" id="pBtnCodeIcon"></span>
+            Ver JSON de Usuario
+          </button>
+          <button class="btn btn-primary" onclick="exportProfileJson()" title="Descargar archivo JSON">
+            <span class="icon-slot" id="pBtnDownIcon"></span>
+            Descargar JSON
+          </button>
+        </div>
+      </div>
+
+      <div id="profileContainer"></div>
+    </div>
+
+    <!-- =================== INFORMACION DE LA APP VIEW =================== -->
+    <!-- Requerimiento 8.1.2 y 9.1.4: El usuario puede acceder a informacion de la aplicacion -->
+    <div id="view-info" class="view hidden">
+      <h2 class="dash-title">Informacion de English Boost Academy</h2>
+      <p class="text-muted" style="margin-bottom:24px">Estructura del programa, objetivos de aprendizaje y reglamentos</p>
+
+      <div class="card p-6" style="padding:28px;margin-bottom:24px">
+        <h3 class="settings-section-title" style="margin-bottom:12px">1. Vision y Metodologia</h3>
+        <p style="line-height:1.7;color:var(--text-light);margin-bottom:16px">
+          <strong>English Boost Academy</strong> esta concebida para brindar a los estudiantes una experiencia de inmersion y aprendizaje continuo en ingles. Integra pruebas evaluadas del <strong>1 al 10</strong>, progresion consecutiva de niveles sin limite alguno y sesiones optimizadas de 10 a 15 minutos cada una.
+        </p>
+
+        <h3 class="settings-section-title" style="margin-bottom:12px">2. Restricciones y Compromiso Academico</h3>
+        <ul style="line-height:1.9;color:var(--text-muted);padding-left:20px;margin-bottom:16px">
+          <li><strong>Restriccion 2.1:</strong> No usar palabras obscenas ni terminos ofensivos en ninguna interaccion o registro.</li>
+          <li><strong>Restriccion 2.2:</strong> No usar emojis dentro de la plataforma; se implementa una interfaz sobria basada en graficos vectoriales SVG.</li>
+          <li><strong>Restriccion 2.3:</strong> Fomentar la concentracion y desarrollo propio sin abusar de ayudas automatizadas externas.</li>
+        </ul>
+
+        <h3 class="settings-section-title" style="margin-bottom:12px">3. Arquitectura Tecnica y Persistencia de Datos</h3>
+        <p style="line-height:1.7;color:var(--text-light)">
+          Todos los datos de registro, perfiles, resultados de pruebas, sesiones y personalizaciones se gestionan mediante una estructura estandarizada en <strong>formato JSON</strong>. Puedes exportar o consultar tus datos en cualquier momento desde la pestana de <em>Perfil & JSON</em>.
+        </p>
+      </div>
+    </div>
+
+    <!-- =================== SETTINGS VIEW =================== -->
+    <div id="view-settings" class="view hidden">
+      <h2 class="dash-title">Opciones del Sistema</h2>
+      <div class="settings-grid">
+
+        <!-- Volumen -->
+        <div class="card settings-card">
+          <h3 class="settings-section-title">Audio y Ambiente</h3>
+          <div class="setting-row">
+            <label>Volumen de musica ambiental</label>
+            <input type="range" id="volumeRange" min="0" max="100" value="50" class="slider" oninput="updateVolume(this.value)" />
+            <span id="volumeLabel" class="text-muted text-small">50%</span>
+          </div>
+          <div class="setting-row">
+            <label>Efectos de sonido interactivos</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="sfxToggle" checked onchange="updateSfx(this.checked)"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Apariencia -->
+        <div class="card settings-card">
+          <h3 class="settings-section-title">Apariencia y Fondos</h3>
+          <div class="setting-row">
+            <label>Fondo de pantalla predefinido</label>
+            <div class="bg-picker" id="bgPicker">
+              <div class="bg-opt active" data-bg="default" style="background:linear-gradient(135deg,#0D0D1A,#1A1A2E)" onclick="setBg(this)" title="Espacio"></div>
+              <div class="bg-opt" data-bg="ocean"   style="background:linear-gradient(135deg,#003D5B,#00D2FF)" onclick="setBg(this)" title="Oceano"></div>
+              <div class="bg-opt" data-bg="forest"  style="background:linear-gradient(135deg,#0F2B0F,#34A853)" onclick="setBg(this)" title="Bosque"></div>
+              <div class="bg-opt" data-bg="sunset"  style="background:linear-gradient(135deg,#3A0D2B,#FF6B6B)" onclick="setBg(this)" title="Atardecer"></div>
+              <div class="bg-opt" data-bg="cosmic"  style="background:linear-gradient(135deg,#1A0533,#6C63FF)" onclick="setBg(this)" title="Cosmico"></div>
+            </div>
+          </div>
+          <div class="setting-row">
+            <label>Fondo personalizado desde tu equipo</label>
+            <button class="btn btn-secondary" style="padding:8px 16px;font-size:0.85rem" onclick="document.getElementById('bgUpload').click()">
+              Cargar imagen local
+            </button>
+            <input type="file" id="bgUpload" accept="image/*" style="display:none" onchange="uploadBg(this)" />
+          </div>
+        </div>
+
+        <!-- Idioma -->
+        <div class="card settings-card">
+          <h3 class="settings-section-title">Idioma de la Interfaz</h3>
+          <div class="setting-row">
+            <label>Idioma principal</label>
+            <select class="select-input" id="langSelect" onchange="updateLang(this.value)" style="width:auto">
+              <option value="es">Espanol</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Notificaciones de inactividad -->
+        <div class="card settings-card">
+          <h3 class="settings-section-title">Recordatorios de Estudio</h3>
+          <div class="setting-row">
+            <label>Recordatorio de practica diaria</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="notifToggle" checked onchange="updateNotif(this.checked)"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label>Hora programada</label>
+            <input type="time" id="notifTime" value="18:00" class="time-input" onchange="updateNotifTime(this.value)" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===================== MODAL EDITAR PERFIL ===================== -->
+  <!-- Requerimiento 6.1.3: Editar perfil despues de haber iniciado sesion -->
+  <div class="modal-backdrop hidden" id="editProfileModal">
+    <div class="modal-card card" style="max-width:500px">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" id="editProfileIconBadge"></div>
+          <div>
+            <h3>Editar Perfil de Estudiante</h3>
+            <span class="text-muted text-small">Actualiza tus datos y emblema</span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeEditProfileModal()" aria-label="Cerrar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="editProfileForm">
+        <div class="modal-body">
+          <div class="input-group mb-4">
+            <label for="editRealName">Nombre completo</label>
+            <input type="text" id="editRealName" required />
+          </div>
+
+          <div class="input-group mb-4">
+            <label for="editCharName">Nombre de personaje / aventurero</label>
+            <input type="text" id="editCharName" maxlength="20" required />
+          </div>
+
+          <div class="input-group mb-4">
+            <label>Emblema de personaje (Vectorial)</label>
+            <div class="avatar-grid" id="editAvatarGrid"></div>
+          </div>
+
+          <div class="input-group mb-4">
+            <label for="editLanguage">Idioma de la interfaz</label>
+            <select id="editLanguage" class="select-input">
+              <option value="es">Espanol</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+          <div class="input-group mb-4">
+            <label for="editNewPassword">Nueva contrasena (dejar en blanco para mantener la actual)</label>
+            <input type="password" id="editNewPassword" placeholder="Minimo 6 caracteres" />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeEditProfileModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="saveProfileBtn">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL VISOR JSON DE USUARIO ===================== -->
+  <!-- Requerimiento 8.1 y 9.1.2: Json para guardar los datos del usuario -->
+  <div class="modal-backdrop hidden" id="jsonViewerModal">
+    <div class="modal-card card" style="max-width:640px">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" id="jsonViewerIconBadge"></div>
+          <div>
+            <h3>Estructura JSON del Usuario</h3>
+            <span class="text-muted text-small">Esquema persistente en navegador (LocalStorage)</span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeJsonModal()" aria-label="Cerrar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="json-code-box">
+          <pre><code id="jsonCodeContent"></code></pre>
+        </div>
+      </div>
+
+      <div class="modal-footer flex justify-between">
+        <button type="button" class="btn btn-secondary" onclick="copyJsonToClipboard()">Copiar al portapapeles</button>
+        <button type="button" class="btn btn-primary" onclick="exportProfileJson()">Descargar archivo .json</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/icons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
